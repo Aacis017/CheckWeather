@@ -3,5 +3,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CheckWeather.WeatherAlert"
              Title="WeatherAlert">
-   
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto, Auto" RowSpacing="20">
+
+        <StackLayout Grid.Row="0" Margin="20,20,20,0" 
+                     Orientation="Horizontal">
+
+            <Frame Padding="10" HasShadow="True" BorderColor="LightSlateGray" CornerRadius="30" >
+                <Label Text="Checking Weather...." FontSize="Default"></Label>
+            </Frame>
+            <ImageButton Source="search.png"
+                         HeightRequest="30"
+                         WidthRequest="30"
+                         HorizontalOptions="EndAndExpand"></ImageButton>
+        </StackLayout>
+
+        <StackLayout Grid.Row="2">
+            <Label x:Name="LblCity" 
+                   FontSize="30" 
+                   HorizontalOptions="Center"
+                   TextColor="Grey"
+                   Text="Mashyam, Palpa"
+                   ></Label>
+        </StackLayout>
+
+        <StackLayout Grid.Row="3">
+            <Image Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HeightRequest="35" Source="wind.png"></Image>
+            <Label x:Name="LblWind" HorizontalOptions="Center" Text="8 m/s"></Label>
+        </StackLayout>
+        <StackLayout Grid.Row="4">
+            <Image Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" HeightRequest="35" Source="rain.png"></Image>
+            <Label x:Name="LblRain" HorizontalOptions="Center" Text="10 mm/hr"></Label>
+        </StackLayout>
+
+    </Grid>
+    
 </ContentPage>
