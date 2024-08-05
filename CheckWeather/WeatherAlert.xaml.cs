@@ -6,6 +6,9 @@ namespace CheckWeather
 {
     public partial class WeatherAlert : ContentPage
     {
+
+        private double latitude;
+        private double longitude;
         public WeatherAlert()
         {
             InitializeComponent();
@@ -16,13 +19,15 @@ namespace CheckWeather
 
 
             base.OnAppearing();
-            var result = await ApiService.GetCurrentWeather(27.7899, 83.501);
+           await GetYourLocation();
+            var result = await ApiService.GetCurrentWeather(latitude, longitude);
             LblRain.Text = result.current.precip_mm.ToString() + "mm/hr";
 
             double windSpeedMps = result.current.wind_mph * 0.44704;
 
             LblWind.Text = windSpeedMps.ToString("F2")+" m/s";
 
+            LblCity.Text = result.location.name;
 
             bool isPrecipitationHigh = result.current.precip_mm > 10;
             bool isWindSpeedHigh = windSpeedMps > 8;
@@ -41,7 +46,104 @@ namespace CheckWeather
                 AlertLabel.Text = "Warning: Precipitation is more than 10 mm/hr!";
             }
         }
+
+
+        private async void OnFetchDataClicked(object sender, EventArgs e)
+        {
+            // Retrieve latitude and longitude values from Entry fields
+            double latitude =  Convert.ToDouble( EntryLatitude.Text);
+            double longitude = Convert.ToDouble(EntryLongitude.Text);
+
+            var result = await ApiService.GetCurrentWeather(latitude, longitude);
+            if (result != null)
+            {
+                LblRain.Text = result.current.precip_mm.ToString() + "mm/hr";
+
+                double windSpeedMps = result.current.wind_mph * 0.44704;
+
+                LblWind.Text = windSpeedMps.ToString("F2") + " m/s";
+
+                LblCity.Text = result.location.name;
+
+                bool isPrecipitationHigh = result.current.precip_mm > 10;
+                bool isWindSpeedHigh = windSpeedMps > 8;
+                AlertLabel.IsVisible = isWindSpeedHigh || isPrecipitationHigh;
+
+                if (isWindSpeedHigh && isPrecipitationHigh)
+                {
+                    AlertLabel.Text = "Warning: High wind speed and heavy precipitation!";
+                }
+                else if (isWindSpeedHigh)
+                {
+                    AlertLabel.Text = "Warning: Wind speed is higher than 8 m/s!";
+                }
+                else if (isPrecipitationHigh)
+                {
+                    AlertLabel.Text = "Warning: Precipitation is more than 10 mm/hr!";
+                }
+
+            }
+
+
+            
+            DisplayAlert("D", $"Latitude: {latitude}, Longitude: {longitude}", "OK");
+        }
+
+
+
+        public async Task GetYourLocation()
+        {
+            var location = await Geolocation.GetLocationAsync();
+           latitude= location.Latitude;
+           longitude= location.Longitude;
+
+
+        }
+
+        private async void Tap_Location_Tapped(object sender, EventArgs e)
+        {
+            await GetYourLocation();
+            await GetWeatherDataByLocation(latitude,longitude);
+            
+
+        }
+
+        public async Task GetWeatherDataByLocation(double latitude,double longitude)
+        {
+            var result = await ApiService.GetCurrentWeather(latitude, longitude);
+            LblRain.Text = result.current.precip_mm.ToString() + "mm/hr";
+
+            double windSpeedMps = result.current.wind_mph * 0.44704;
+
+            LblWind.Text = windSpeedMps.ToString("F2") + " m/s";
+
+            LblCity.Text = result.location.name;
+
+            bool isPrecipitationHigh = result.current.precip_mm > 10;
+            bool isWindSpeedHigh = windSpeedMps > 8;
+            AlertLabel.IsVisible = isWindSpeedHigh || isPrecipitationHigh;
+
+            if (isWindSpeedHigh && isPrecipitationHigh)
+            {
+                AlertLabel.Text = "Warning: High wind speed and heavy precipitation!";
+            }
+            else if (isWindSpeedHigh)
+            {
+                AlertLabel.Text = "Warning: Wind speed is higher than 8 m/s!";
+            }
+            else if (isPrecipitationHigh)
+            {
+                AlertLabel.Text = "Warning: Precipitation is more than 10 mm/hr!";
+            }
+
+        }
+
+
+
+
     }
+
+
 
 
         //    private Random _random;

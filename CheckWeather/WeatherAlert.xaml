@@ -4,30 +4,28 @@
              x:Class="CheckWeather.WeatherAlert"
              Title="WeatherAlert"
              BackgroundColor="LightBlue">
-    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="20">
-        <Frame>
-        <StackLayout Grid.Row="0" 
-                     Orientation="Horizontal"
-                     
-                     Spacing="10">
-
-            <Entry x:Name="EntryLatitude" Placeholder="Enter Latitude" WidthRequest="150" Keyboard="Numeric"></Entry>
-            <Entry x:Name="EntryLongitude" Placeholder="Enter Longitude" WidthRequest="150" Keyboard="Numeric"></Entry>
-            <Button Text="Fetch Data" ></Button>
-        </StackLayout>
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="20" >
+        <Frame Grid.Row="0" Padding="15" Margin="0,20,0,0" HasShadow="True" BorderColor="LightGrey" CornerRadius="40" BackgroundColor="LightSeaGreen">
+            <StackLayout Orientation="Horizontal" Spacing="10">
+                <Entry x:Name="EntryLatitude" Placeholder="Enter Latitude" WidthRequest="125" Keyboard="Numeric" />
+                <Entry x:Name="EntryLongitude" Placeholder="Enter Longitude" WidthRequest="125" Keyboard="Numeric" />
+                <Button Text="Search" CornerRadius="35" HorizontalOptions="EndAndExpand" Clicked="OnFetchDataClicked" />
+            </StackLayout>
         </Frame>
+
         <StackLayout Grid.Row="1" Margin="20,20,20,0" 
                      Orientation="Horizontal"
                      HorizontalOptions="CenterAndExpand">
 
             <Frame Padding="10" HasShadow="True" BorderColor="LightSlateGray" CornerRadius="30">
                 <Label Text="Your Location" FontSize="Default" TextColor="DarkSlateGray"></Label>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer x:Name="Tap_Location" Tapped="Tap_Location_Tapped">
+                        
+                    </TapGestureRecognizer>
+                </Frame.GestureRecognizers>
             </Frame>
-            <ImageButton Source="search.png"
-                         HeightRequest="30"
-                         WidthRequest="30"
-                         HorizontalOptions="EndAndExpand"
-                         Margin="10,0,0,0"></ImageButton>
+            
         </StackLayout>
 
         <StackLayout Grid.Row="2">
@@ -35,7 +33,6 @@
                    FontSize="30" 
                    HorizontalOptions="Center"
                    TextColor="DarkSlateGray"
-                   Text="Mashyam, Palpa"
                    FontAttributes="Bold"></Label>
         </StackLayout>
 
