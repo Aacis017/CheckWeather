@@ -11,12 +11,12 @@
         </LinearGradientBrush>
     </ContentPage.Background>
 
-    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20" Padding="30">
+    <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Spacing="20" Padding="10">
         <Label 
-            Text="Welcome to Weather App"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center"
-            FontSize="32"
+            Text="Welcome"
+            VerticalOptions="CenterAndExpand" 
+            HorizontalOptions="CenterAndExpand"
+            FontSize="40"
             TextColor="White"
             FontAttributes="Bold"
             Margin="0,20,0,0"/>
@@ -26,7 +26,7 @@
             FontSize="Large"
             BackgroundColor="White"
             TextColor="Green"
-            WidthRequest="250"
+            WidthRequest="175"
             HeightRequest="50"
             CornerRadius="25"
             Margin="0,50,0,0"

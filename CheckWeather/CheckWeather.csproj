@@ -60,6 +60,7 @@
 	  <None Remove="Resources\Images\rain.png" />
 	  <None Remove="Resources\Images\search.png" />
 	  <None Remove="Resources\Images\wind.png" />
+	  <None Remove="Resources\Images\Windng.png" />
 	</ItemGroup>
 
 	<ItemGroup>

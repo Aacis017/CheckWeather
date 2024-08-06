@@ -3,9 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CheckWeather.WeatherAlert"
              Title="WeatherAlert"
-             BackgroundColor="LightBlue">
+             >
+    <ContentPage.Background>
+        <LinearGradientBrush EndPoint="0,1">
+            <GradientStop Color="green" Offset="0" />
+            <GradientStop Color="#0072ff" Offset="1" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
     <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="20" >
-        <Frame Grid.Row="0" Padding="15" Margin="0,20,0,0" HasShadow="True" BorderColor="LightGrey" CornerRadius="40" BackgroundColor="LightSeaGreen">
+        <Frame Grid.Row="0" Padding="15" Margin="10,10,10,10" HasShadow="True" BorderColor="LightGrey" CornerRadius="40" BackgroundColor="White">
             <StackLayout Orientation="Horizontal" Spacing="10">
                 <Entry x:Name="EntryLatitude" Placeholder="Enter Latitude" WidthRequest="125" Keyboard="Numeric" />
                 <Entry x:Name="EntryLongitude" Placeholder="Enter Longitude" WidthRequest="125" Keyboard="Numeric" />
@@ -21,29 +27,38 @@
                 <Label Text="Your Location" FontSize="Default" TextColor="DarkSlateGray"></Label>
                 <Frame.GestureRecognizers>
                     <TapGestureRecognizer x:Name="Tap_Location" Tapped="Tap_Location_Tapped">
-                        
+
                     </TapGestureRecognizer>
                 </Frame.GestureRecognizers>
             </Frame>
-            
+
         </StackLayout>
+
 
         <StackLayout Grid.Row="2">
-            <Label x:Name="LblCity" 
+            <Label x:Name="LblLocation" 
                    FontSize="30" 
                    HorizontalOptions="Center"
-                   TextColor="DarkSlateGray"
+                   TextColor="White"
                    FontAttributes="Bold"></Label>
+            <Image x:Name="LblIcon"
+               HorizontalOptions="Center"
+               WidthRequest="100"
+               HeightRequest="100" />
+
+
         </StackLayout>
 
-        <StackLayout Grid.Row="3" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
-            <Image Source="wind.png" HeightRequest="50"></Image>
-            <Label x:Name="LblWind" FontSize="24"  VerticalOptions="Center" TextColor="DarkSlateGray"></Label>
+        <StackLayout Grid.Row="3" Orientation="Horizontal" Spacing="40">
+
+            <Image Source="wind.png" HeightRequest="35" HorizontalOptions="CenterAndExpand"></Image>
+            <Label x:Name="LblWind" FontSize="20"   HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="white"></Label>
+
         </StackLayout>
 
-        <StackLayout Grid.Row="4" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10">
-            <Image Source="rain.png" HeightRequest="50"></Image>
-            <Label x:Name="LblRain" FontSize="24"  VerticalOptions="Center" TextColor="DarkSlateGray"></Label>
+        <StackLayout Grid.Row="4" Orientation="Horizontal" Spacing="40">
+            <Image Source="rain.png" HeightRequest="35" HorizontalOptions="CenterAndExpand"></Image>
+            <Label x:Name="LblRain" FontSize="20" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" TextColor="White"></Label>
         </StackLayout>
 
         <Label x:Name="AlertLabel" 
