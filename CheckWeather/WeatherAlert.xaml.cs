@@ -83,6 +83,8 @@ namespace CheckWeather
         {
             await GetYourLocation();
             await GetWeatherDataByLocation(latitude, longitude);
+            EntryLatitude.Text = "";
+            EntryLongitude.Text = "";
 
 
         }
@@ -90,7 +92,16 @@ namespace CheckWeather
         public async Task GetWeatherDataByLocation(double latitude, double longitude)
         {
             var result = await ApiService.GetCurrentWeather(latitude, longitude);
-            LblRain.Text = result.current.precip_mm.ToString() + "mm";
+            if (result == null)
+            {
+                await DisplayAlert("SomeThing Went Wrong","Connection or Input Error", "Ok");
+                LblRain.Text = "-- mm";
+                LblWind.Text = "-- m/s";
+                LblLocation.Text = "Error!";
+
+                return;
+            }
+            LblRain.Text = result.current.precip_mm.ToString() + " mm";
 
             double windSpeedMps = result.current.wind_mph * 0.44704;
 
@@ -108,18 +119,34 @@ namespace CheckWeather
             bool isPrecipitationHigh = result.current.precip_mm > 10;
             bool isWindSpeedHigh = windSpeedMps > 8;
             AlertLabel.IsVisible = isWindSpeedHigh || isPrecipitationHigh;
-
+        
             if (isWindSpeedHigh && isPrecipitationHigh)
             {
-                AlertLabel.Text = "Warning: High wind speed and heavy precipitation!";
+                AlertLabel.Text = "Alert: High wind speed and heavy precipitation!";
             }
             else if (isWindSpeedHigh)
             {
-                AlertLabel.Text = "Warning: Wind speed is higher than 8 m/s!";
+                AlertLabel.Text = "Alert: Wind speed is higher than 8 m/s!";
             }
             else if (isPrecipitationHigh)
             {
-                AlertLabel.Text = "Warning: Precipitation is more than 10 mm!";
+                AlertLabel.Text = "Alert: Precipitation is more than 10 mm!";
+            }
+
+
+
+            if (AlertLabel.IsVisible)
+            {
+                await BlinkLabel(AlertLabel, 20);
+            }
+
+            async Task BlinkLabel(Label label, int numberOfBlinks)
+            {
+                for (int i = 0; i < numberOfBlinks; i++)
+                {
+                    await label.FadeTo(0, 250); // Fade out
+                    await label.FadeTo(5, 250); // Fade in
+                }
             }
 
         }

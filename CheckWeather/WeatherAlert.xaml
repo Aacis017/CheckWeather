@@ -10,14 +10,50 @@
             <GradientStop Color="#0072ff" Offset="1" />
         </LinearGradientBrush>
     </ContentPage.Background>
-    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="20" >
-        <Frame Grid.Row="0" Padding="15" Margin="10,10,10,10" HasShadow="True" BorderColor="LightGrey" CornerRadius="40" BackgroundColor="White">
-            <StackLayout Orientation="Horizontal" Spacing="10">
-                <Entry x:Name="EntryLatitude" Placeholder="Enter Latitude" WidthRequest="125" Keyboard="Numeric" />
-                <Entry x:Name="EntryLongitude" Placeholder="Enter Longitude" WidthRequest="125" Keyboard="Numeric" />
-                <Button Text="Search" CornerRadius="35" HorizontalOptions="EndAndExpand" Clicked="OnFetchDataClicked" />
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto" RowSpacing="20">
+        <Frame 
+    Grid.Row="0" 
+    Padding="0" 
+    Margin="10" 
+    HasShadow="False" 
+     
+    CornerRadius="20" 
+    BackgroundColor="Transparent">
+            <StackLayout 
+        Orientation="Vertical" 
+        Spacing="15"
+        Padding="15">
+                <Label Text="Check Weather Condition" HorizontalOptions="CenterAndExpand"></Label>
+
+                <Grid 
+            ColumnDefinitions="*,*,*" 
+            RowDefinitions="Auto,Auto,Auto">
+                    <Entry 
+                x:Name="EntryLatitude" 
+                Placeholder="Latitude" 
+                Keyboard="Numeric" 
+                Grid.Column="0"
+                Margin="0,0,10,0"/>
+                    <Entry 
+                x:Name="EntryLongitude" 
+                Placeholder="Longitude" 
+                Keyboard="Numeric" 
+                Grid.Column="1"
+                         Margin="0,0,10,0"/>
+                    <Button Text="Search" 
+                    CornerRadius="45" 
+                HorizontalOptions="EndAndExpand" 
+                            VerticalOptions="Center"
+ Clicked="OnFetchDataClicked" 
+                            
+                            Grid.Column="2"
+                 Margin="0,0,10,0"/>
+                </Grid>
+
             </StackLayout>
+
         </Frame>
+
 
         <StackLayout Grid.Row="1" Margin="20,20,20,0" 
                      Orientation="Horizontal"
@@ -64,9 +100,9 @@
         <Label x:Name="AlertLabel" 
                Grid.Row="6" 
                FontSize="20" 
-               TextColor="Red" 
-               HorizontalOptions="Center"
-               VerticalOptions="EndAndExpand"
+               TextColor="DarkRed" 
+               HorizontalOptions="CenterAndExpand"
+               VerticalOptions="CenterAndExpand"
                Margin="20"
                IsVisible="False" />
 
