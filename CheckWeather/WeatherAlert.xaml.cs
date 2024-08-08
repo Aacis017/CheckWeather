@@ -12,9 +12,18 @@ namespace CheckWeather
         private CancellationTokenSource _cancelTokenSource;
         private bool _isCheckingLocation;
 
+        private IDispatcherTimer? reminderTimer;
+
+       
+           
+
+
         public WeatherAlert()
         {
             InitializeComponent();
+            // this.InitializeReminderTimer();
+            this._cancelTokenSource = new CancellationTokenSource();
+
         }
 
         protected async override void OnAppearing()
@@ -65,7 +74,6 @@ namespace CheckWeather
             }
             catch (Exception ex)
             {
-                // Unable to get location
             }
             finally
             {
@@ -133,8 +141,6 @@ namespace CheckWeather
                 AlertLabel.Text = "Alert: Precipitation is more than 10 mm!";
             }
 
-
-
             if (AlertLabel.IsVisible)
             {
                 await BlinkLabel(AlertLabel, 20);
@@ -152,101 +158,47 @@ namespace CheckWeather
         }
 
 
+     
 
+        //private void InitializeReminderTimer()
+        //{
+        //    var dispatcher = Dispatcher.DispatchDelayed;
+        //    if (dispatcher != null)
+        //    {
+        //        this.reminderTimer = Dispatcher.CreateTimer();
+        //        if (this.reminderTimer != null)
+        //        {
+        //            this.reminderTimer.Tick += this.OnReminderTimerTick;
+        //        }
+        //    }
+
+        //    this.reminderTimer.Interval = new TimeSpan(0, 0, 20);
+        //    StartReminderTimer();
+        //}
+
+        //private void StartReminderTimer()
+        //{
+        //    this.StopReminderTimer();
+        //    this.reminderTimer?.Start();
+        //}
+
+        //private void StopReminderTimer()
+        //{
+        //    if (this.reminderTimer != null && !this.reminderTimer.IsRunning)
+        //    {
+        //        return;
+        //    }
+
+        //    this.reminderTimer?.Stop();
+        //}
+
+        //private async void OnReminderTimerTick(object sender, EventArgs e)
+        //{
+        //    await GetWeatherDataByLocation(latitude, longitude);
+        //    this.reminderTimer.Interval = new TimeSpan(0, 0, 20);
+        //    StartReminderTimer();
+        //}
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //    private Random _random;
-    //    private readonly TimeSpan _updateInterval = TimeSpan.FromSeconds(5); // Update every 5 seconds
-
-    //    public WeatherAlert()
-    //    {
-    //        InitializeComponent();
-    //        _random = new Random();
-    //        StartUpdatingWeatherData();
-    //    }
-
-    //    private async void StartUpdatingWeatherData()
-    //    {
-    //        while (true)
-    //        {
-    //            GenerateRandomWeatherData();
-    //            await Task.Delay(_updateInterval);
-    //        }
-    //    }
-
-    //    private void GenerateRandomWeatherData()
-    //    {
-    //        double windSpeed = _random.NextDouble() * 20; 
-    //        double precipitation = _random.NextDouble() * 20; 
-
-    //        LblWind.Text = $"{windSpeed:F1} m/s";
-    //        LblRain.Text = $"{precipitation:F1} mm/hr";
-
-    //        bool isWindSpeedHigh = windSpeed > 8;
-    //        bool isPrecipitationHigh = precipitation > 10;
-
-    //        AlertLabel.IsVisible = isWindSpeedHigh || isPrecipitationHigh;
-
-    //        if (isWindSpeedHigh && isPrecipitationHigh)
-    //        {
-    //            AlertLabel.Text = "Warning: High wind speed and heavy precipitation!";
-    //        }
-    //        else if (isWindSpeedHigh)
-    //        {
-    //            AlertLabel.Text = "Warning: Wind speed is higher than 8 m/s!";
-    //        }
-    //        else if (isPrecipitationHigh)
-    //        {
-    //            AlertLabel.Text = "Warning: Precipitation is more than 10 mm/hr!";
-    //        }
-    //    }
-
-
-    //    private void OnFetchDataClicked(object sender, EventArgs e)
-    //    {
-    //        // Retrieve latitude and longitude values from Entry fields
-    //        string latitude = EntryLatitude.Text;
-    //        string longitude = EntryLongitude.Text;
-
-    //        // Perform your data fetching logic here
-    //        // You can use latitude and longitude values to fetch weather data
-
-    //        // For demonstration, showing an alert with the entered values
-    //        DisplayAlert("Fetching Data", $"Latitude: {latitude}, Longitude: {longitude}", "OK");
-    //    }
-    //}
 }
