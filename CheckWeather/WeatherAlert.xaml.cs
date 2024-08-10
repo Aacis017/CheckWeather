@@ -102,7 +102,7 @@ namespace CheckWeather
             var result = await ApiService.GetCurrentWeather(latitude, longitude);
             if (result == null)
             {
-                await DisplayAlert("SomeThing Went Wrong","Connection or Input Error", "Ok");
+                await DisplayAlert("Something Went Wrong","Connection or Input Error", "Ok");
                 LblRain.Text = "-- mm";
                 LblWind.Text = "-- m/s";
                 LblLocation.Text = "Error!";
