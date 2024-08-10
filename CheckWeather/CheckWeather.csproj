@@ -21,7 +21,7 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>WeatherAlert</ApplicationTitle>
+		<ApplicationTitle>Weather Alert</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.checkweather</ApplicationId>
@@ -42,7 +42,7 @@
 		<!-- App Icon -->
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#C2A4D3" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#282a2b" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />

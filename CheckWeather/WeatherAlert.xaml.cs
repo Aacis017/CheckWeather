@@ -12,7 +12,7 @@ namespace CheckWeather
         private CancellationTokenSource _cancelTokenSource;
         private bool _isCheckingLocation;
 
-        private IDispatcherTimer? reminderTimer;
+       // private IDispatcherTimer? reminderTimer;
 
        
            
@@ -155,10 +155,13 @@ namespace CheckWeather
                 }
             }
 
+
+
+
         }
 
 
-     
+        #region For Continious Weather Api Hit
 
         //private void InitializeReminderTimer()
         //{
@@ -198,6 +201,9 @@ namespace CheckWeather
         //    this.reminderTimer.Interval = new TimeSpan(0, 0, 20);
         //    StartReminderTimer();
         //}
+
+        #endregion
+
 
     }
 
