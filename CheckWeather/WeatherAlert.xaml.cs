@@ -28,8 +28,6 @@ namespace CheckWeather
 
         protected async override void OnAppearing()
         {
-
-
             base.OnAppearing();
             await GetYourLocation();
             await GetWeatherDataByLocation(latitude, longitude);
@@ -99,6 +97,9 @@ namespace CheckWeather
 
         public async Task GetWeatherDataByLocation(double latitude, double longitude)
         {
+            LblLocation.Text = "Loading...";
+            LblRain.Text = "-- mm";
+            LblWind.Text = "-- m/s";
             var result = await ApiService.GetCurrentWeather(latitude, longitude);
             if (result == null)
             {
@@ -146,20 +147,17 @@ namespace CheckWeather
                 await BlinkLabel(AlertLabel, 20);
             }
 
-            async Task BlinkLabel(Label label, int numberOfBlinks)
-            {
-                for (int i = 0; i < numberOfBlinks; i++)
-                {
-                    await label.FadeTo(0, 250); // Fade out
-                    await label.FadeTo(5, 250); // Fade in
-                }
-            }
-
-
-
+            
 
         }
-
+        async Task BlinkLabel(Label label, int numberOfBlinks)
+        {
+            for (int i = 0; i < numberOfBlinks; i++)
+            {
+                await label.FadeTo(0, 250); // Fade out
+                await label.FadeTo(5, 250); // Fade in
+            }
+        }
 
         #region For Continious Weather Api Hit
 
