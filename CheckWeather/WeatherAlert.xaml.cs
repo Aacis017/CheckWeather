@@ -13,11 +13,6 @@ namespace CheckWeather
         private bool _isCheckingLocation;
 
        // private IDispatcherTimer? reminderTimer;
-
-       
-           
-
-
         public WeatherAlert()
         {
             InitializeComponent();
@@ -62,7 +57,7 @@ namespace CheckWeather
 
                 _cancelTokenSource = new CancellationTokenSource();
 
-                Location location = await Geolocation.Default.GetLocationAsync(request, _cancelTokenSource.Token);
+                var location = await Geolocation.Default.GetLocationAsync(request, _cancelTokenSource.Token);
 
                 if (location != null)
                 {
@@ -91,8 +86,6 @@ namespace CheckWeather
             await GetWeatherDataByLocation(latitude, longitude);
             EntryLatitude.Text = "";
             EntryLongitude.Text = "";
-
-
         }
 
         public async Task GetWeatherDataByLocation(double latitude, double longitude)
@@ -123,7 +116,6 @@ namespace CheckWeather
                 iconUrl = "https:" + iconUrl;
             }
 
-
             LblIcon.Source = ImageSource.FromUri(new Uri(iconUrl));
             bool isPrecipitationHigh = result.current.precip_mm > 10;
             bool isWindSpeedHigh = windSpeedMps > 8;
@@ -146,9 +138,6 @@ namespace CheckWeather
             {
                 await BlinkLabel(AlertLabel, 20);
             }
-
-            
-
         }
         async Task BlinkLabel(Label label, int numberOfBlinks)
         {
@@ -201,8 +190,6 @@ namespace CheckWeather
         //}
 
         #endregion
-
-
     }
 
 }
