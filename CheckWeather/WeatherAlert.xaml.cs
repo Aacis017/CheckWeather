@@ -8,27 +8,23 @@ namespace CheckWeather
     {
         private double latitude;
         private double longitude;
-
         private CancellationTokenSource _cancelTokenSource;
         private bool _isCheckingLocation;
 
-       // private IDispatcherTimer? reminderTimer;
+        // private IDispatcherTimer? reminderTimer;
+
         public WeatherAlert()
         {
             InitializeComponent();
             // this.InitializeReminderTimer();
             this._cancelTokenSource = new CancellationTokenSource();
-
         }
-
         protected async override void OnAppearing()
         {
             base.OnAppearing();
             await GetYourLocation();
             await GetWeatherDataByLocation(latitude, longitude);
         }
-
-
         private async void OnFetchDataClicked(object sender, EventArgs e)
         {
             if (EntryLatitude.Text == null || EntryLongitude.Text == null)
@@ -39,14 +35,10 @@ namespace CheckWeather
             double latitude = Convert.ToDouble(EntryLatitude.Text);
             double longitude = Convert.ToDouble(EntryLongitude.Text);
 
-           await  DisplayAlert("Checking", $"Latitude: {latitude}, Longitude: {longitude}","OK");
+            await DisplayAlert("Checking", $"Latitude: {latitude}, Longitude: {longitude}", "OK");
 
             await GetWeatherDataByLocation(latitude, longitude);
         }
-
-
-
-
         public async Task GetYourLocation()
         {
             try
@@ -78,8 +70,6 @@ namespace CheckWeather
             if (_isCheckingLocation && _cancelTokenSource != null && _cancelTokenSource.IsCancellationRequested == false)
                 _cancelTokenSource.Cancel();
         }
-
-
         private async void Tap_Location_Tapped(object sender, EventArgs e)
         {
             await GetYourLocation();
@@ -87,7 +77,6 @@ namespace CheckWeather
             EntryLatitude.Text = "";
             EntryLongitude.Text = "";
         }
-
         public async Task GetWeatherDataByLocation(double latitude, double longitude)
         {
             LblLocation.Text = "Loading...";
@@ -96,7 +85,7 @@ namespace CheckWeather
             var result = await ApiService.GetCurrentWeather(latitude, longitude);
             if (result == null)
             {
-                await DisplayAlert("Something Went Wrong","Connection or Input Error", "Ok");
+                await DisplayAlert("Something Went Wrong", "Connection or Input Error", "Ok");
                 LblRain.Text = "-- mm";
                 LblWind.Text = "-- m/s";
                 LblLocation.Text = "Error!";
@@ -120,7 +109,7 @@ namespace CheckWeather
             bool isPrecipitationHigh = result.current.precip_mm > 10;
             bool isWindSpeedHigh = windSpeedMps > 8;
             AlertLabel.IsVisible = isWindSpeedHigh || isPrecipitationHigh;
-        
+
             if (isWindSpeedHigh && isPrecipitationHigh)
             {
                 AlertLabel.Text = "Alert: High wind speed and heavy precipitation!";
